@@ -13,3 +13,5 @@ module NossoAmigoSecreto
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+# config.active_job.queue_adapter = :sidekiq
