@@ -5,7 +5,7 @@ RSpec.describe CampaignsController, type: :controller do
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
-    @current_user = FactoryGirl.create(:user)
+    @current_user = FactoryBot.create(:user)
     sign_in @current_user
   end
 
@@ -57,7 +57,7 @@ RSpec.describe CampaignsController, type: :controller do
       expect(response).to redirect_to("/campaigns/#{Campaign.last.id}")
     end
 
-    it "Create campaign with initial params" do
+    it "Create campaign with right attributes" do
       expect(Campaign.last.user).to eql(@current_user)
       expect(Campaign.last.title).to eql("Nova Campanha")
       expect(Campaign.last.description).to eql("Descreva sua campanha...")
@@ -133,7 +133,7 @@ RSpec.describe CampaignsController, type: :controller do
         @campaign = create(:campaign, user: @current_user)
       end
 
-      context "Members => 3" do
+      context "Has more than two members" do
         before(:each) do
           create(:member, campaign: @campaign)
           create(:member, campaign: @campaign)
@@ -146,7 +146,7 @@ RSpec.describe CampaignsController, type: :controller do
         end
       end
 
-      context "Members < 3" do
+      context "No more than two members" do
         before(:each) do
           create(:member, campaign: @campaign)
           post :raffle, params: {id: @campaign.id}
